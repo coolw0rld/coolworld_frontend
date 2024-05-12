@@ -2,10 +2,14 @@ import { Bottom, Button, Participants, Top } from "../components";
 import { styled } from "styled-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function HomePage() {
 	const [percent, setPercent] = useState(2);
 	let navigate = useNavigate();
+
+	const isConfirmed = useSelector((state) => state.confirmation.isConfirmed);
+	console.log(isConfirmed);
 
 	const challengeText = "텀블러를\n사용해보세요!";
 
@@ -25,10 +29,9 @@ export default function HomePage() {
 				</ChallengeDiv>
 				<Participants />
 				<Button
-					children="인증하러 가기"
-					onClick={() => {
-						navigate("/confirm");
-					}}
+					children={isConfirmed ? "인증 완료" : "인증하러 가기"}
+					onClick={() => navigate("/confirm")}
+					disabled={isConfirmed}
 					width="180"
 					height="50"
 					fontSize="20"

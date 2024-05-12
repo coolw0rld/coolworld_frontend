@@ -1,13 +1,20 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logoImg from "../assets/logo.svg";
 
 export default function Top({ isHome }) {
 	const [points, setPoints] = useState(30);
+	let navigate = useNavigate();
 
 	return (
 		<MyTop>
-			<div style={{ marginLeft: "10px", display: "flex" }}>
+			<div
+				style={{ marginLeft: "10px", display: "flex" }}
+				onClick={() => {
+					navigate("/");
+				}}
+			>
 				<img src={logoImg} height="45px" alt="logo" />
 				<div
 					className="righteous-regular"
