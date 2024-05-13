@@ -26,11 +26,8 @@ const questions = [
 	},
 ];
 
-function Question({ question, onAnswer }) {
-	const [selectedAnswer, setSelectedAnswer] = useState(null);
-
+function Question({ question, onAnswer, selectedAnswer }) {
 	const handleAnswerSelection = (answer) => {
-		setSelectedAnswer(answer);
 		onAnswer(answer);
 	};
 
@@ -103,6 +100,7 @@ export default function SurveyPage() {
 					<Question
 						question={questions[QIdx]}
 						onAnswer={handleAnswer}
+						selectedAnswer={answers[QIdx]}
 					></Question>
 
 					<div

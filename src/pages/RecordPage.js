@@ -1,7 +1,7 @@
 import { Bottom, Top } from "../components";
 import { styled } from "styled-components";
 import { useState } from "react";
-import logoImg from "../assets/logo.svg";
+import stampImg from "../assets/stamp.svg";
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
 
@@ -77,7 +77,7 @@ function createCircles(currentDate, successDays) {
 		let circleContent;
 		if (isSuccessDay) {
 			circleContent = (
-				<img src={logoImg} alt="Logo" style={{ width: "70%" }} />
+				<img src={stampImg} alt="Logo" style={{ width: "70%" }} />
 			);
 		} else {
 			circleContent = dateString;

@@ -10,7 +10,7 @@ export default function Top({ isHome }) {
 	return (
 		<MyTop>
 			<div
-				style={{ marginLeft: "10px", display: "flex" }}
+				style={{ marginLeft: "16px", display: "flex" }}
 				onClick={() => {
 					navigate("/");
 				}}
@@ -20,7 +20,7 @@ export default function Top({ isHome }) {
 					className="righteous-regular"
 					style={{
 						color: "#fff",
-						marginLeft: "12px",
+						marginLeft: "10px",
 						fontSize: "20px",
 						letterSpacing: "0.2rem",
 					}}
@@ -57,7 +57,7 @@ const MyTop = styled.div`
 const PointDiv = styled.div`
 	min-width: 80px;
 	height: 45px;
-	margin-right: 10px;
+	margin-right: 12px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
