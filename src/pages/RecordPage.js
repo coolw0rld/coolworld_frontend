@@ -1,14 +1,16 @@
 import { Bottom, Top } from "../components";
 import { styled } from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import stampImg from "../assets/stamp.svg";
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
+import { getMonthlyStamps } from "../api";
 
 export default function RecordPage() {
 	const [currentDate, setCurrentDate] = useState(new Date());
+	const [successDays, setSuccessDays] = useState([]);
 
-	const successDays = [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 14, 16, 17, 18];
+	//const successDays = [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 14, 16, 17, 18];
 
 	const PrevMonth = () => {
 		setCurrentDate(
@@ -23,6 +25,26 @@ export default function RecordPage() {
 				new Date(prevDate.getFullYear(), prevDate.getMonth() + 1, 1)
 		);
 	};
+
+	useEffect(() => {
+		async function fetchMonthlyStamps() {
+			try {
+				const stamps = await getMonthlyStamps(
+					currentDate.getFullYear(),
+					currentDate.getMonth() + 1
+				);
+				if (stamps) {
+					const successDays = stamps.missions
+						.filter((mission) => mission.status === "success")
+						.map((mission) => new Date(mission.date).getDate());
+					setSuccessDays(successDays);
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		}
+		fetchMonthlyStamps();
+	}, [currentDate]);
 
 	return (
 		<div>

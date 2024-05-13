@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logoImg from "../assets/logo.svg";
@@ -6,6 +7,14 @@ import logoImg from "../assets/logo.svg";
 export default function Top({ isHome }) {
 	const [points, setPoints] = useState(30);
 	let navigate = useNavigate();
+
+	const isConfirmed = useSelector((state) => state.confirmation.isConfirmed);
+
+	useEffect(() => {
+		if (isConfirmed) {
+			setPoints((prevPoints) => prevPoints + 5);
+		}
+	}, [isConfirmed]);
 
 	return (
 		<MyTop>

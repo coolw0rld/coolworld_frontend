@@ -4,8 +4,18 @@ const confirmationSlice = createSlice({
 	name: "confirmation",
 	initialState: { isConfirmed: false },
 	reducers: {
-		toggleConfirmation(state) {
-			state.isConfirmed = !state.isConfirmed;
+		setConfirmation(state, action) {
+			state.isConfirmed = action.payload;
+		},
+	},
+});
+
+const surveyAnswersSlice = createSlice({
+	name: "surveyAnswers",
+	initialState: [],
+	reducers: {
+		setSurveyAnswers(state, action) {
+			return action.payload;
 		},
 	},
 });
@@ -13,7 +23,9 @@ const confirmationSlice = createSlice({
 export default configureStore({
 	reducer: {
 		confirmation: confirmationSlice.reducer,
+		surveyAnswers: surveyAnswersSlice.reducer,
 	},
 });
 
-export const { toggleConfirmation } = confirmationSlice.actions;
+export const { setConfirmation } = confirmationSlice.actions;
+export const { setSurveyAnswers } = surveyAnswersSlice.actions;

@@ -2,6 +2,8 @@ import { Button, Top } from "../components";
 import { styled } from "styled-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSurveyAnswers } from "../store";
 
 const questions = [
 	{
@@ -67,12 +69,14 @@ export default function SurveyPage() {
 	const [QIdx, setQIdx] = useState(0);
 	const [answers, setAnswers] = useState([]);
 	let navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const handleAnswer = (answer) => {
 		const updatedAnswers = [...answers];
 		updatedAnswers[QIdx] = answer;
 		setAnswers(updatedAnswers);
 		console.log(answers);
+		dispatch(setSurveyAnswers(updatedAnswers));
 	};
 
 	const handleNext = () => {

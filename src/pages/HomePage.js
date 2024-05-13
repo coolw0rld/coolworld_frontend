@@ -1,17 +1,44 @@
 import { Bottom, Button, Participants, Top } from "../components";
 import { styled } from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { getMission } from "../api";
 
 export default function HomePage() {
-	const [percent, setPercent] = useState(2);
 	let navigate = useNavigate();
 
 	const isConfirmed = useSelector((state) => state.confirmation.isConfirmed);
 	console.log(isConfirmed);
 
-	const challengeText = "텀블러를\n사용해보세요!";
+	const surveyAnswers = useSelector((state) => state.surveyAnswers);
+
+	const [mission, setMission] = useState("");
+	const [percent, setPercent] = useState(2);
+	//const mission = "텀블러를\n사용해보세요!";
+
+	const getPercentByCategory = (category) => {
+		const percentMap = {
+			category1: 2,
+			category2: 5,
+			category3: 3,
+		};
+		return percentMap[category] || 2;
+	};
+
+	useEffect(() => {
+		const fetchMission = async () => {
+			try {
+				const { mission, category } = await getMission(surveyAnswers);
+				setMission(mission);
+				const percent = getPercentByCategory(category);
+				setPercent(percent);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchMission();
+	}, [surveyAnswers]);
 
 	return (
 		<div>
@@ -20,7 +47,7 @@ export default function HomePage() {
 				<ChallengeDiv>
 					<div className="challenge">
 						<div className="challenge-today">오늘의 챌린지</div>
-						<div className="challenge-text">{challengeText}</div>
+						<div className="challenge-text">{mission}</div>
 					</div>
 					<div className="challenge-description">
 						오늘의 챌린지 인증 시 <span>{percent}</span>%의 환경

@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Bottom, Button, Modal, Top } from "../components";
 import { styled } from "styled-components";
 import { RiImageAddLine } from "react-icons/ri";
+import { submitMission } from "../api";
+import { useDispatch, useSelector } from "react-redux";
+import { setConfirmation } from "../store";
 
 export default function ConfirmPage() {
 	const [showModal, setShowModal] = useState(false);
@@ -10,6 +13,9 @@ export default function ConfirmPage() {
 
 	const [postImg, setPostImg] = useState(null); // 서버에 업로드할 파일 데이터
 	const [previewImg, setPreviewImg] = useState(""); // 프리뷰에 사용할 파일 데이터 (이미지 URL)
+
+	const isConfirmed = useSelector((state) => state.confirmation.isConfirmed);
+	const dispatch = useDispatch();
 
 	const handleFileChange = (e) => {
 		const file = e.target.files[0];
@@ -24,7 +30,23 @@ export default function ConfirmPage() {
 	};
 
 	const handleFileUpload = () => {
-		// 서버에 파일 업로드
+		setIsLoading(true);
+		setShowModal(true);
+		submitMission(new Date().toISOString(), postImg)
+			.then((response) => {
+				if (response === "success") {
+					setIsSuccess(true);
+					dispatch(setConfirmation(true));
+				} else {
+					setIsSuccess(false);
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				setIsLoading(false);
+			});
 	};
 
 	return (
@@ -69,14 +91,14 @@ export default function ConfirmPage() {
 					<Button
 						children="AI 검증 받기"
 						onClick={() => {
-							setShowModal(true);
+							handleFileUpload();
 						}}
 						width="250"
 					/>
 				</ConfirmDiv>
 				<Button
 					children="저장하기"
-					disabled={true}
+					disabled={isConfirmed ? false : true}
 					onClick={() => {}}
 					width="250"
 				/>
