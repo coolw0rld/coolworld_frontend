@@ -30,10 +30,10 @@ export default function HomePage() {
 	};
 
 	// useEffect(() => {
-	// 	setMission("미션~");
-	// 	const category = "trash";
-	// 	const categoryText = getCategoryText(category);
-	// 	setCategoryText(categoryText);
+	//  setMission("미션~");
+	//  const category = "trash";
+	//  const categoryText = getCategoryText(category);
+	//  setCategoryText(categoryText);
 	// }, []);
 
 	useEffect(() => {

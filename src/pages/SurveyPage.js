@@ -81,8 +81,9 @@ export default function SurveyPage() {
 	const dispatch = useDispatch();
 
 	const handleAnswer = (answer) => {
+		const optionIndex = questions[QIdx].options.indexOf(answer);
 		const updatedAnswers = [...answers];
-		updatedAnswers[QIdx] = answer;
+		updatedAnswers[QIdx] = optionIndex;
 		setAnswers(updatedAnswers);
 		console.log(answers);
 		dispatch(setSurveyAnswers(updatedAnswers));
@@ -113,9 +114,8 @@ export default function SurveyPage() {
 					<Question
 						question={questions[QIdx]}
 						onAnswer={handleAnswer}
-						selectedAnswer={answers[QIdx]}
+						selectedAnswer={questions[QIdx].options[answers[QIdx]]}
 					></Question>
-
 					<div
 						style={{
 							width: "300px",
