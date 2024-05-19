@@ -8,23 +8,32 @@ import { setSurveyAnswers } from "../store";
 const questions = [
 	{
 		id: 1,
-		text: "일주일에 대중교통을 몇 번 이용하시나요?",
-		options: ["Q1옵션1", "Q1옵션2", "Q1옵션3"],
+		text: "분리수거를 얼마나 자주 하나요?",
+		options: [
+			"항상 분리수거한다.",
+			"가끔 분리수거한다.",
+			"분리수거하지 않는다.",
+		],
 	},
 	{
 		id: 2,
-		text: "일주일에 대중교통을 몇 번 이용하시나요?",
-		options: ["Q2옵션1", "Q2옵션2", "Q2옵션3"],
+		text: "일주일에 자가용을 몇 번 이용하나요?",
+		options: ["매일 이용", "4-6일 이용", "1-3일 이용"],
 	},
 	{
 		id: 3,
-		text: "일주일에 대중교통을 몇 번 이용하시나요?",
-		options: ["Q3옵션1", "Q3옵션2", "Q3옵션3"],
+		text: "사용하지 않는 전자제품의 플러그를 뽑는 습관이 있나요?",
+		options: ["항상 뽑는다.", "가끔 뽑는다.", "뽑지 않는다."],
 	},
 	{
 		id: 4,
-		text: "일주일에 대중교통을 몇 번 이용하시나요?",
-		options: ["Q4옵션1", "Q4옵션2", "Q4옵션3"],
+		text: "샤워 시간을 얼마나 유지하나요?",
+		options: ["10분 이하로 한다.", "10-20분 정도 한다.", "20분 이상 한다."],
+	},
+	{
+		id: 5,
+		text: "음식을 얼마나 남기는 편인가요?",
+		options: ["항상 남기지 않는다.", "가끔 남긴다.", "자주 남긴다."],
 	},
 ];
 
@@ -160,7 +169,7 @@ const Container = styled.div`
 `;
 
 const QuestionDiv = styled.div`
-	width: 250px;
+	width: 300px;
 	height: 320px;
 
 	display: flex;
@@ -169,7 +178,10 @@ const QuestionDiv = styled.div`
 	align-items: center;
 
 	.question-text {
-		width: 180px;
+		display: flex;
+		justify-content: center;
+		text-align: center;
+		width: 320px;
 		font-size: 22px;
 		font-weight: 600;
 		margin-bottom: 30px;

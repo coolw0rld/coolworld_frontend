@@ -14,25 +14,35 @@ export default function HomePage() {
 	const surveyAnswers = useSelector((state) => state.surveyAnswers);
 
 	const [mission, setMission] = useState("");
-	const [percent, setPercent] = useState(2);
+	const [categoryText, setCategoryText] = useState("");
 	//const mission = "텀블러를\n사용해보세요!";
 
-	const getPercentByCategory = (category) => {
-		const percentMap = {
-			category1: 2,
-			category2: 5,
-			category3: 3,
+	const getCategoryText = (category) => {
+		const categoryMap = {
+			trash: "생활 폐기물을 1% 줄이면 NO₂ 배출량은 약 0.5%, CO 배출량은 약 0.2% 감소합니다!",
+			traffic:
+				"서울시민 10명 중 한 명이 대중교통을 이용하면 열섬현상을 1.0062도 낮출 수 있습니다!",
+			energy: "전기 사용량을 1% 줄이면 NO₂ 농도는 약 0.46%, CO 농도는 약 0.065% 감소합니다!",
+			water: "물 사용량을 1% 줄이면 NO₂ 배출량은 약 0.15%, CO 배출량은 약 0.05% 감소합니다!",
+			food: "음식물 쓰레기를 1% 줄이면 NO₂ 배출량은 약 0.25%, CO 배출량은 약 0.1% 감소합니다!",
 		};
-		return percentMap[category] || 2;
+		return categoryMap[category] || "";
 	};
+
+	// useEffect(() => {
+	// 	setMission("미션~");
+	// 	const category = "trash";
+	// 	const categoryText = getCategoryText(category);
+	// 	setCategoryText(categoryText);
+	// }, []);
 
 	useEffect(() => {
 		const fetchMission = async () => {
 			try {
 				const { mission, category } = await getMission(surveyAnswers);
-				setMission(mission);
-				const percent = getPercentByCategory(category);
-				setPercent(percent);
+				setMission(mission || "");
+				const categoryText = getCategoryText(category);
+				setCategoryText(categoryText);
 			} catch (error) {
 				console.log(error);
 			}
@@ -50,8 +60,7 @@ export default function HomePage() {
 						<div className="challenge-text">{mission}</div>
 					</div>
 					<div className="challenge-description">
-						오늘의 챌린지 인증 시 <span>{percent}</span>%의 환경
-						보호 효과가 있어요!
+						<span>{categoryText}</span>
 					</div>
 				</ChallengeDiv>
 				<Participants />
